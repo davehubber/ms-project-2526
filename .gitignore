@@ -1,6 +1,2 @@
-*.xml
-2013AEDL.csv
-1S2014AEDL.csv
-2S2014AEDL.csv
-1P2015AEDL.csv
-2P2015AEDL.csv
+matrix*.xml
+*AEDL.csv
