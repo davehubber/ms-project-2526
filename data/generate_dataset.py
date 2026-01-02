@@ -1,33 +1,57 @@
 import os
 import sys
 import subprocess
+import shutil
 import glob
 import numpy as np
-import pandas as pd
-import traci
-
-# This file should be in the same folder as the cleaned TAZ file
-# Before running this, ensure that the taz_cleaner.py script has been executed
-# to produce 'taz_clean.xml' from the original 'taz.xml'.
+import multiprocessing
+import time
 
 # --- CONFIGURATION ---
+# We set up paths first to ensure we can import libsumo
 try:
     if 'SUMO_HOME' in os.environ:
         tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
         sys.path.append(tools)
     else:
-        os.environ["SUMO_HOME"] = "/usr/share/sumo"
+        # Detect OS to set the correct default path
+        if sys.platform.startswith('win'):
+             # Common default installation path on Windows
+             os.environ["SUMO_HOME"] = r"C:\Program Files (x86)\Eclipse\Sumo"
+             if not os.path.exists(os.environ["SUMO_HOME"]):
+                 os.environ["SUMO_HOME"] = r"C:\Program Files\Eclipse\Sumo"
+        else:
+            # Default Linux path
+            os.environ["SUMO_HOME"] = "/usr/share/sumo"
+            
+        tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+        sys.path.append(tools)
 
-    SUMO_BINARY = "sumo"
-    OD2TRIPS_BINARY = "od2trips"
-    DUAROUTER_BINARY = "duarouter"
+    # Use libsumo
+    import libsumo as traci
+
+    # Define binaries based on OS
+    if sys.platform.startswith('win'):
+        SUMO_BINARY = "sumo.exe"
+        OD2TRIPS_BINARY = "od2trips.exe"
+        DUAROUTER_BINARY = "duarouter.exe"
+    else:
+        SUMO_BINARY = "sumo"
+        OD2TRIPS_BINARY = "od2trips"
+        DUAROUTER_BINARY = "duarouter"
     
-    # Check dependencies
-    subprocess.run(["which", SUMO_BINARY], check=True, stdout=subprocess.DEVNULL)
-    subprocess.run(["which", DUAROUTER_BINARY], check=True, stdout=subprocess.DEVNULL)
+    if shutil.which(SUMO_BINARY) is None and shutil.which("sumo") is None:
+        # Just a warning for libsumo, but critical for tools
+        pass 
+    if shutil.which(DUAROUTER_BINARY) is None and shutil.which("duarouter") is None:
+        sys.exit(f"ERROR: {DUAROUTER_BINARY} not found. Please check your installation.")
     
+except ImportError:
+    sys.exit("ERROR: 'libsumo' not found. Please ensure SUMO is installed correctly.")
 except subprocess.CalledProcessError:
-    sys.exit("ERROR: SUMO or DUAROUTER not found. Please check your installation.")
+    sys.exit("ERROR: SUMO tools not found. Please check your installation.")
+
+import pandas as pd
 
 NET_FILE = "net.net.xml"
 TAZ_FILE = "taz_clean.xml"
@@ -73,6 +97,7 @@ def extract_hours_from_filename(filename):
     return "0.00", "1.00", 0
 
 def write_perturbed_matrix(df, run_id, original_filename, noise_level=0.15):
+    # Generates a unique perturbed matrix file for this specific run_id
     perturbation = np.random.uniform(1.0 - noise_level, 1.0 + noise_level, size=len(df))
     df_perturbed = df.copy()
     df_perturbed['count'] = (df['count'] * perturbation).round(0).astype(int)
@@ -82,6 +107,7 @@ def write_perturbed_matrix(df, run_id, original_filename, noise_level=0.15):
     filename_only = f"temp_{original_filename}_{run_id}.txt"
     temp_name = os.path.join(UPDATED_OD_FOLDER, filename_only)
     
+    # Write in the format OD2TRIPS expects
     with open(temp_name, 'w') as f:
         f.write("$OR;D2\n")
         f.write("* From-Time  To-Time\n")
@@ -96,14 +122,14 @@ def write_perturbed_matrix(df, run_id, original_filename, noise_level=0.15):
     return temp_name, df_perturbed['count'].values
 
 def generate_trips_file(od_file, run_id):
-    
-    raw_trips_file = od_file.replace(".txt", ".trips.xml") # Temporário
-    final_rou_file = od_file.replace(".txt", ".rou.xml")   # Validado
+    # Generates unique route files for this process
+    raw_trips_file = od_file.replace(".txt", ".trips.xml") 
+    final_rou_file = od_file.replace(".txt", ".rou.xml")   
 
+    # Ensure logs folder exists (race condition safe)
     os.makedirs("od2tripslogs", exist_ok=True)
     os.makedirs("duarouterlogs", exist_ok=True)
     
-    # Generate trips using od2trips
     cmd_od = [
         OD2TRIPS_BINARY,
         "-n", TAZ_FILE,
@@ -114,7 +140,6 @@ def generate_trips_file(od_file, run_id):
         "--error-log", f"od2tripslogs/od2trips_error_log_{run_id}.txt"
     ]
     
-    # Generate routes using duarouter
     cmd_dua = [
         DUAROUTER_BINARY,
         "-n", NET_FILE,
@@ -126,14 +151,14 @@ def generate_trips_file(od_file, run_id):
     ]
 
     try:
+        # Run external tools
         subprocess.run(cmd_od, check=True, capture_output=True, text=True)
         subprocess.run(cmd_dua, check=False, capture_output=False, text=True)
         if os.path.exists(raw_trips_file):
             os.remove(raw_trips_file)
 
     except subprocess.CalledProcessError as e:
-        print(f"\n[WARNING] Failed to generate routes for: {od_file}")
-        # If it fails, try to ensure the final file exists (even if empty)
+        # If routing fails, create empty routes to prevent simulation crash
         if not os.path.exists(final_rou_file):
              with open(final_rou_file, 'w') as f: f.write("<routes/>")
              
@@ -145,8 +170,9 @@ def run_simulation(trips_file, start_hour_int):
     
     begin_time_sec = start_hour_int * 3600
     
+    # Libsumo start command (First arg 'sumo' is ignored by libsumo, but required)
     cmd = [
-        SUMO_BINARY, 
+        "sumo", 
         "-n", NET_FILE, 
         "-a", DETECTORS_FILE, 
         "-r", trips_file,
@@ -154,13 +180,12 @@ def run_simulation(trips_file, start_hour_int):
         "--no-step-log", "true", 
         "--waiting-time-memory", "1000",
         "--time-to-teleport", "-1",
-        "--ignore-route-errors", "true",
-        "--start"
+        "--ignore-route-errors", "true"
     ]
     
     try:
         traci.start(cmd)
-    except traci.FatalTraCIError:
+    except Exception:
         return {}
     
     all_detectors = traci.inductionloop.getIDList()
@@ -178,7 +203,7 @@ def run_simulation(trips_file, start_hour_int):
     while traci.simulation.getMinExpectedNumber() > 0:
         try:
             traci.simulationStep()
-        except traci.FatalTraCIError:
+        except Exception:
             break
         
         step_counter += 1
@@ -234,72 +259,117 @@ def run_simulation(trips_file, start_hour_int):
         
     return final_output
 
+# --- WORKER FUNCTION ---
+def process_single_run(args):
+    """
+    This function runs inside a separate process.
+    args: tuple (run_id, matrix_path)
+    """
+    run_id, matrix_path = args
+    filename = os.path.basename(matrix_path)
+    
+    # 1. Load Data
+    base_df = load_base_matrix(matrix_path)
+    if base_df.empty:
+        return None
+    
+    _, _, start_h = extract_hours_from_filename(filename)
+    
+    try:
+        # 2. Perturb Matrix
+        od_txt, od_vector = write_perturbed_matrix(base_df, run_id, filename)
+        
+        # 3. Generate Trips (External Subprocess)
+        trips_xml = generate_trips_file(od_txt, run_id)
+        
+        # 4. Run Simulation (In-Process Libsumo)
+        # Note: In multiprocessing, each process has its own 'traci' state
+        outputs = run_simulation(trips_xml, start_h)
+        
+        # 5. Clean up temp files (Optional, but good for disk space)
+        if os.path.exists(od_txt): os.remove(od_txt)
+        if os.path.exists(trips_xml): os.remove(trips_xml)
+        
+        # 6. Prepare Result
+        row = {'run_id': run_id, 'source_matrix': filename}
+        for idx, val in enumerate(od_vector):
+            row[f"od_{idx}"] = val
+        row.update(outputs)
+        
+        return row
+        
+    except Exception as e:
+        # Ensure we don't crash the pool, just report error
+        return {'error': str(e), 'run_id': run_id, 'source_matrix': filename}
+
 # --- MAIN EXECUTION ---
 if __name__ == "__main__":
+    # 1. Setup
     matrix_files = glob.glob(os.path.join(OD_FOLDER, "*.xml"))
     matrix_files.sort(key=lambda f: int(os.path.basename(f).split('.')[1]))
     
     if not os.path.exists(UPDATED_OD_FOLDER):
         os.makedirs(UPDATED_OD_FOLDER, exist_ok=True)
     
-    print(f"--- MODE: 5-MINUTE INTERVALS ---")
-    
+    # 2. Prepare Job List
     dataset_rows = []
     
+    # Check for existing progress
+    existing_run_ids = set()
     if os.path.exists(BACKUP_FILE):
         print(f">> Found backup. Resuming...")
         try:
             df_backup = pd.read_csv(BACKUP_FILE)
             df_backup = df_backup.loc[:, ~df_backup.columns.str.contains('^Unnamed')]
             dataset_rows = df_backup.to_dict('records')
+            # Assuming run_id is in backup
+            if 'run_id' in df_backup.columns:
+                existing_run_ids = set(df_backup['run_id'])
         except Exception:
             dataset_rows = []
-            
-    count = len(dataset_rows)
+
     NUM_SAMPLES = 2 
-    total = len(matrix_files) * NUM_SAMPLES
+    jobs = []
     
+    # Generate a unique ID for every single planned run
+    global_counter = 0
     for matrix_path in matrix_files:
         filename = os.path.basename(matrix_path)
-        completed_runs = sum(1 for row in dataset_rows if row.get('source_matrix') == filename)
-        
-        if completed_runs >= NUM_SAMPLES:
-            print(f"   [SKIP] {filename}")
-            continue
-        
-        print(f"\n>> Processing: {filename}")
-        base_df = load_base_matrix(matrix_path)
-        _, _, start_h = extract_hours_from_filename(filename)
-        
-        if base_df.empty: continue
-
         for i in range(NUM_SAMPLES):
-            if i < completed_runs: continue
+            global_counter += 1
+            if global_counter in existing_run_ids:
+                continue
+            jobs.append((global_counter, matrix_path))
 
-            count += 1
-            print(f"   Run {i+1}/{NUM_SAMPLES} (Total: {count}/{total})...")
+    total_jobs = len(jobs)
+    print(f"--- MODE: MULTIPROCESSING (LIBSUMO) ---")
+    print(f"--- Detected {os.cpu_count()} CPUs. Queued {total_jobs} jobs. ---")
+
+    # 3. Execute with Pool
+    # We leave 1 or 2 cores free for system tasks if possible, otherwise use all
+    workers = max(1, os.cpu_count() - 1)
+    
+    with multiprocessing.Pool(processes=workers) as pool:
+        # imap_unordered yields results as soon as they finish, in any order
+        for i, result in enumerate(pool.imap_unordered(process_single_run, jobs)):
             
-            try:
-                od_txt, od_vector = write_perturbed_matrix(base_df, count, filename)
+            if result is None:
+                continue
                 
-                trips_xml = generate_trips_file(od_txt, count)
-                
-                outputs = run_simulation(trips_xml, start_h)
-                
-                row = {'run_id': count, 'source_matrix': filename}
-                for idx, val in enumerate(od_vector):
-                    row[f"od_{idx}"] = val
-                row.update(outputs)
-                dataset_rows.append(row)
-
+            if 'error' in result:
+                print(f"   [FAIL] Run {result['run_id']} ({result['source_matrix']}): {result['error']}")
+                continue
+            
+            dataset_rows.append(result)
+            
+            # Progress print
+            print(f"   Finished {i+1}/{total_jobs} (Run ID: {result['run_id']})")
+            
+            # Save backup every 10 runs to avoid file I/O bottlenecks
+            if i % 10 == 0:
                 pd.DataFrame(dataset_rows).to_csv(BACKUP_FILE, index=False)
 
-            except Exception as e:
-                print(f"\n   [FAIL] {e}")
-            
-            finally:
-                pass
-
+    # 4. Final Save
     final_df = pd.DataFrame(dataset_rows)
     final_df.to_csv(OUTPUT_FILE, index=False)
     print(f"\n\nDone! Saved to: {OUTPUT_FILE}")
