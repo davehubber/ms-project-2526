@@ -1,0 +1,159 @@
+<additional>
+    <inductionLoop id="121725_C_0" lane="1181571_0" pos="414.87" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121725_C_1" lane="1181571_1" pos="414.97" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121725_D_0" lane="1016682_0" pos="1332.57" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121725_D_1" lane="1016682_1" pos="1331.47" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121726_C_0" lane="1254022_0" pos="848.40" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121726_C_1" lane="1254022_1" pos="848.90" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121726_C_2" lane="1254022_2" pos="849.40" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121726_D_0" lane="1214190_0" pos="140.04" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121726_D_1" lane="1214190_1" pos="140.44" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121726_D_2" lane="1214190_2" pos="140.84" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121727_C_0" lane="1214665_0" pos="124.31" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121727_C_1" lane="1214665_1" pos="124.41" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121727_C_2" lane="1214665_2" pos="124.51" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121727_D_0" lane="1074110_0" pos="1292.94" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121727_D_1" lane="1074110_1" pos="1293.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121727_D_2" lane="1074110_2" pos="1293.00" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121729_C_0" lane="1051139_0" pos="147.05" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121729_C_1" lane="1051139_1" pos="147.06" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121729_D_0" lane="1398689_0" pos="669.66" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121729_D_1" lane="1398689_1" pos="669.96" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121729_D_2" lane="1398689_2" pos="670.26" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121730_C_0" lane="2011015_0" pos="515.45" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121730_C_1" lane="2011015_1" pos="515.33" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121730_C_2" lane="2011015_2" pos="515.13" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121730_D_0" lane="1398689_0" pos="117.04" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121730_D_1" lane="1398689_1" pos="117.04" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121730_D_2" lane="1398689_2" pos="117.04" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121737_C_0" lane="1051136_0" pos="340.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121737_C_1" lane="1051136_1" pos="340.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121737_D_0" lane="1051128_0" pos="128.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121737_D_1" lane="1051128_1" pos="128.00" period="300" file="output_detectors.xml"/>
+    
+    <inductionLoop id="121738_C_0" lane="1051070_0" pos="2314.87" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121738_C_1" lane="1051070_1" pos="2314.87" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121738_D_0" lane="1189895_0" pos="62.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121738_D_1" lane="1189895_1" pos="62.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121738_D_2" lane="1189895_2" pos="62.00" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121731_C_0" lane="1063682_0" pos="276.06" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121731_C_1" lane="1063682_1" pos="275.86" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121731_C_2" lane="1063682_2" pos="275.66" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121731_C_3" lane="1063682_3" pos="275.46" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121731_D_0" lane="1063512_0" pos="172.06" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121731_D_1" lane="1063512_1" pos="172.06" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121731_D_2" lane="1063512_2" pos="172.16" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121731_D_3" lane="1063512_3" pos="172.28" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121732_C_0" lane="1062244_0" pos="307.60" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121732_C_1" lane="1062244_1" pos="306.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121732_C_2" lane="1062244_2" pos="304.40" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121732_C_3" lane="1062244_3" pos="302.74" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121732_D_0" lane="1051023_0" pos="69.75" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121732_D_1" lane="1051023_1" pos="69.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121732_D_2" lane="1051023_2" pos="68.25" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121732_D_3" lane="1051023_3" pos="67.50" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121733_C_0" lane="1062753_0" pos="355.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121733_C_1" lane="1062753_1" pos="355.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121733_C_2" lane="1062753_2" pos="355.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121733_D_0" lane="1051020_0" pos="187.95" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121733_D_1" lane="1051020_1" pos="188.95" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121733_D_2" lane="1051020_2" pos="189.95" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121734_C_0" lane="1051025_0" pos="190.55" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121734_C_1" lane="1051025_1" pos="190.25" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121734_C_2" lane="1051025_2" pos="189.95" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121734_C_3" lane="1051025_3" pos="189.65" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121734_D_0" lane="1016654_0" pos="252.00" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121734_D_1" lane="1016654_1" pos="252.00" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121734_D_2" lane="1016654_2" pos="252.00" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121734_D_3" lane="1016654_3" pos="252.00" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121734_D_4" lane="1016654_4" pos="252.00" period="300.00" file="output_detectors.xml"/>
+
+    <inductionLoop id="121735_C_0" lane="1051026_0" pos="538.78" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121735_C_1" lane="1051026_1" pos="539.00" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121735_C_2" lane="1051026_2" pos="539.22" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121735_D_0" lane="1016653_0" pos="169.50" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121735_D_1" lane="1016653_1" pos="169.90" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121735_D_2" lane="1016653_2" pos="170.08" period="300.00" file="output_detectors.xml"/>
+
+    <inductionLoop id="121736_C_0" lane="1062939_0" pos="504.09" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121736_C_1" lane="1062939_1" pos="504.59" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121736_C_2" lane="1062939_2" pos="505.09" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121736_D_0" lane="2020467_0" pos="769.00" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121736_D_1" lane="2020467_1" pos="769.50" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121736_D_2" lane="2020467_2" pos="770.00" period="300.00" file="output_detectors.xml"/>
+
+    <inductionLoop id="121741_C_0" lane="1254019_0" pos="182.39" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121741_C_1" lane="1254019_1" pos="182.39" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121741_C_2" lane="1254019_2" pos="182.39" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121741_D_0" lane="1122617_0" pos="242.06" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121741_D_1" lane="1122617_1" pos="241.56" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121741_D_2" lane="1122617_2" pos="241.06" period="300.00" file="output_detectors.xml"/>
+
+    <inductionLoop id="121742_C_0" lane="1254016_0" pos="71.00" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121742_C_1" lane="1254016_1" pos="71.00" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121742_C_2" lane="1254016_2" pos="71.00" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121742_D_0" lane="1020008_0" pos="465.80" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121742_D_1" lane="1020008_1" pos="466.00" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121742_D_2" lane="1020008_2" pos="466.20" period="300.00" file="output_detectors.xml"/>
+
+    <inductionLoop id="121743_C_0" lane="1019863_0" pos="12.18" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121743_C_1" lane="1019863_1" pos="12.18" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121743_D_0" lane="1048407_0" pos="155.08" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121743_D_1" lane="1048407_1" pos="155.08" period="300.00" file="output_detectors.xml"/>
+
+    <inductionLoop id="121746_C_0" lane="1019707_0" pos="17.0" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121746_C_1" lane="1019707_1" pos="17.0" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121746_C_2" lane="1019718_0" pos="17.5" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121746_D_0" lane="1019714_0" pos="503.19" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121746_D_1" lane="1019714_1" pos="502.8" period="300.00" file="output_detectors.xml"/>
+    <inductionLoop id="121746_D_2" lane="1051042_0" pos="230.25" period="300.00" file="output_detectors.xml"/>
+
+    <inductionLoop id="121749_C_0" lane="1019715_0" pos="1014.72" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121749_C_1" lane="1019715_1" pos="1016.22" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121749_C_2" lane="1019715_2" pos="1017.72" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121749_D_0" lane="1411220_0" pos="316.50" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121749_D_1" lane="1411220_1" pos="318.50" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121749_D_2" lane="1411220_2" pos="320.50" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121750_C_0" lane="1177259_0" pos="168.04" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121750_C_1" lane="1177259_1" pos="168.14" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121750_D_0" lane="1647234_0" pos="952.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121750_D_1" lane="1647234_1" pos="950.00" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121751_C_0" lane="1969025_0" pos="643.65" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121751_C_1" lane="1969025_1" pos="643.65" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121751_D_0" lane="1743806_0" pos="52.55" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121751_D_1" lane="1743806_1" pos="52.65" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121754_C_0" lane="1181487_0" pos="424.53" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121754_C_1" lane="1181487_1" pos="424.43" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121754_D_0" lane="1175973_0" pos="45.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121754_D_1" lane="1175973_1" pos="45.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121754_D_2" lane="1111268_0" pos="45.00" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121755_C_0" lane="1176005_0" pos="327.18" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121755_C_1" lane="1176005_1" pos="327.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121755_D_0" lane="1176008_0" pos="247.28" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121755_D_1" lane="1176008_1" pos="247.28" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121756_C_0" lane="1181559_0" pos="95.91" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121756_C_1" lane="1181559_1" pos="96.30" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121756_D_0" lane="2027240_0" pos="738.31" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121756_D_1" lane="2027240_1" pos="738.81" period="300" file="output_detectors.xml"/>
+
+    <inductionLoop id="121745_C_0" lane="1062798_0" pos="0.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121745_C_1" lane="1062798_1" pos="0.00" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121745_D_0" lane="1062796_0" pos="143.56" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121745_D_1" lane="1062796_1" pos="143.06" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121745_D_2" lane="1062796_2" pos="142.56" period="300" file="output_detectors.xml"/>
+    <inductionLoop id="121745_D_3" lane="1767911_0" pos="143.06" period="300" file="output_detectors.xml"/>
+</additional>
