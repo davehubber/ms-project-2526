@@ -14,8 +14,8 @@ HIDDEN_LAYERS = [64, 256, 256, 512]
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 START_HOUR = 8
-END_HOUR = 9
-ITERATIONS = 100  # Gradient descent converges much faster than SPSA (300)
+END_HOUR = 10
+ITERATIONS = 1000
 
 # Paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

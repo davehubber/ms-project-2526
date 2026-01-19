@@ -15,8 +15,8 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Simulation / Optimization Config
 START_HOUR = 8          # e.g., 8 AM
-END_HOUR = 9            # e.g., 9 AM (Estimates 08:00 to 09:00 inclusive)
-SPSA_ITERATIONS = 300   # Iterations per time step
+END_HOUR = 10            # e.g., 10 AM (Estimates 08:00 to 1:00 inclusive)
+SPSA_ITERATIONS = 1000   # Iterations per time step
 
 # Paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
