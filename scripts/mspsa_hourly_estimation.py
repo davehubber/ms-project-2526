@@ -49,10 +49,7 @@ class ODMetamodel(nn.Module):
 
 # --- 3. DIFFERENTIABLE OPTIMIZER (The "MSPSA" Improvement) ---
 class GradientOptimizer:
-    """
-    Uses the differentiable nature of the Neural Network (White Box) 
-    to optimize inputs directly via Backpropagation.
-    """
+    """Optimizes inputs via Backpropagation."""
     def __init__(self, model, scaler_x, scaler_y, input_size, device):
         self.model = model
         self.scaler_x = scaler_x
@@ -62,46 +59,32 @@ class GradientOptimizer:
         
     def run(self, target_data_numpy, iterations=100):
         # 1. Initialization
-        # Same conservative start as SPSA for fair comparison
         init_od_real = np.random.randint(0, 2, size=(1, self.input_size))
         init_od_scaled = self.scaler_x.transform(init_od_real)
         
-        # 2. Define Theta as a Learnable Parameter
-        # requires_grad=True tells PyTorch to track operations on this tensor
+        # 2. Define Theta
         theta = torch.tensor(init_od_scaled.flatten(), dtype=torch.float32, device=self.device, requires_grad=True)
         
-        # 3. Setup Optimizer (Adam is excellent for this)
-        # We optimize 'theta' directly.
-        optimizer = optim.Adam([theta], lr=0.01) # Learning rate can be tuned
+        # 3. Setup Optimizer
+        optimizer = optim.Adam([theta], lr=0.01)
         
         target_tensor = torch.tensor(target_data_numpy, dtype=torch.float32).to(self.device)
         loss_history = []
         
-        self.model.eval() # Ensure Dropout is OFF for consistent gradient flow
+        self.model.eval()
         
         for k in range(iterations):
             optimizer.zero_grad()
             
             # Forward Pass
-            # We must unsqueeze to add batch dimension (1, 676)
             pred_scaled = self.model(theta.unsqueeze(0))
             
-            # --- TRICKY PART: Inverse Scaling in the Loop ---
-            # Standard Scalers (sklearn) are not differentiable PyTorch modules.
-            # To backpropagate through the "Physical Loss", we must implement 
-            # the inverse scaling using PyTorch tensors manually.
-            # Formula: X_real = X_scaled * (max - min) + min
-            
+            # Manual inverse scaling for backprop
             scale_min = torch.tensor(self.scaler_y.min_, dtype=torch.float32).to(self.device)
             scale_scale = torch.tensor(self.scaler_y.scale_, dtype=torch.float32).to(self.device)
             
-            # Inverse transform: (y - min) / scale = x_std  <-- sklearn logic is reverse
-            # Sklearn MinMaxScaler: X_std = (X - X.min) / (X.max - X.min)
-            # Inverse: X = X_std * (X.max - X.min) + X.min
-            # Note: scaler.scale_ is roughly 1 / (max-min)
-            
-            # Correct manual inverse transform for PyTorch backprop:
             pred_real = (pred_scaled - scale_min) / scale_scale
+
             
             # Calculate Physical RMSE
             loss = torch.sqrt(nn.MSELoss()(pred_real, target_tensor))
@@ -178,18 +161,12 @@ if __name__ == "__main__":
     df_res.to_csv(output_csv_path)
     
     # --- D. COMPARISON PLOT ---
-    # This answers: "How will I be able to compare..."
-    # We plot the convergence of the FIRST interval against a hypothetical SPSA trace
-    # (or you can overlay the previous run's data)
-    
     plt.figure(figsize=(10, 6))
     
     # Plot Gradient Method
-    plt.plot(sample_loss_history, label='Differentiable Gradient (Proposed)', color='green', linewidth=2)
+    plt.plot(sample_loss_history, label='Differentiable Gradient', color='green', linewidth=2)
     
-    # Stylized SPSA curve for comparison (SPSA usually zig-zags and is slower)
-    # If you have the CSV from the previous run, load it here. 
-    # Otherwise, this illustrates the expected difference:
+    # Stylized SPSA curve for comparison
     spsa_mock = [sample_loss_history[0] * (1 - 0.005*i) + np.random.normal(0, 5) for i in range(ITERATIONS)]
     spsa_mock = np.maximum(spsa_mock, sample_loss_history[-1] * 1.5) # SPSA usually settles higher
     

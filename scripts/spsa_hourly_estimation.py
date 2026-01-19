@@ -58,7 +58,7 @@ class SPSAOptimizer:
         self.input_size = input_size
         self.device = device
         
-        # Hyperparameters (Min et al. 2024)
+        # Hyperparameters
         self.a = 0.001
         self.c = 0.1
         self.delta = 0.1 
@@ -83,8 +83,7 @@ class SPSAOptimizer:
         """
         target_tensor = torch.tensor(target_data_numpy, dtype=torch.float32).to(self.device)
         
-        # Initialization: Random binary start (0 or 1) as per Min et al.
-        # [cite_start]"We start from a conservative initial solution" [cite: 486]
+        # Initialization
         init_od_real = np.random.randint(0, 2, size=(1, self.input_size))
         
         # Scale initial guess
@@ -145,9 +144,7 @@ if __name__ == "__main__":
         raise ValueError("Cannot filter by hour: No 'time' column found in CSV.")
         
     # Convert to datetime objects for filtering
-    # Assuming standard format like "HH:MM:SS" or "YYYY-MM-DD HH:MM:SS"
     df_gt['dt_obj'] = pd.to_datetime(df_gt[time_col], format='%H:%M:%S', errors='coerce')
-    # If format parsing fails (e.g. contains date), try general parser
     if df_gt['dt_obj'].isna().all():
          df_gt['dt_obj'] = pd.to_datetime(df_gt[time_col], errors='coerce')
 
