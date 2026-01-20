@@ -1,0 +1,32 @@
+QUICK START: Running Simulation Models & Optimizations
+======================================================
+
+For detailed installation instructions, data preparation, and full replication steps, 
+please refer to the README.md file in this repository.
+
+1. SETUP
+--------
+- Ensure you have Python 3.12 installed.
+- Ensure SUMO is installed and added to your PATH.
+- Install dependencies:
+  pip install -r requirements.txt
+
+2. RUNNING OPTIMIZATIONS (OD ESTIMATION)
+----------------------------------------
+To estimate the OD matrix using the pre-trained metamodel:
+
+A. SPSA Algorithm (Stochastic):
+   python scripts/run_spsa.py
+
+B. M-SPSA Algorithm (Gradient-Based):
+   python scripts/run_mspsa.py
+
+Output CSVs and convergence plots will be saved in the `results/` folder.
+
+3. TESTING THE MODEL
+--------------------
+To train the metamodel and see evaluation metrics (test loss, reality gap plots):
+
+   python scripts/train_metamodel.py
+
+Plots will be saved to `results/`.
