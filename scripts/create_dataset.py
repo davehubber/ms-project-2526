@@ -4,7 +4,6 @@ import subprocess
 import numpy as np
 import xml.etree.ElementTree as ET
 import multiprocessing
-from functools import partial
 import tempfile
 import shutil
 import libsumo

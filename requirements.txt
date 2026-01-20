@@ -1,0 +1,10 @@
+pandas
+numpy
+torch
+scikit-learn
+matplotlib
+joblib
+holidays
+sumolib
+traci
+tqdm
