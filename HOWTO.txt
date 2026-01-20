@@ -2,7 +2,7 @@ QUICK START: Running Simulation Models & Optimizations
 ======================================================
 
 For detailed installation instructions, data preparation, and full replication steps, 
-please refer to the README.md file in this repository.
+please refer to the README.md file in the source repository.
 
 1. SETUP
 --------
